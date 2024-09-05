@@ -1,7 +1,10 @@
 const express = require('express');
+const routerApi = require('./routes');
 
 const app = express();
 const port = 3000;
+
+app.use(express.json());
 
 app.get('/', (req, res) => {
   res.send('Hola mi server en express');
@@ -11,13 +14,8 @@ app.get('/nueva-ruta', (req, res) => {
   res.send('esta es mi nueva ruta');
 });
 
-app.get('/products', (req, res) => {
-  res.json({
-    name: 'Cafetéra',
-    price: 30,
-  })
-})
+routerApi(app);
 
 app.listen(port, () => {
-  console.log('mi port' + port)
+  console.log(`Èstoy en el puerto http://localhost:${port}`)
 })
