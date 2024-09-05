@@ -29,7 +29,11 @@ class ProductService {
   }
 
   async find() {
-    return this.products;
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve(this.products);
+      }, 5000)
+    })
   }
 
   async findOne(id) {
@@ -39,7 +43,7 @@ class ProductService {
   async update(id, changes) {
     const index = this.products.findIndex(item => item.id === id);
     if (index === -1) {
-      throw new Error('Producto no encotrado');
+      throw new Error('Producto no encontrado');
     };
 
     const product = this.products[index];
