@@ -19,7 +19,7 @@ class ProductService {
     }
   }
 
-  create(data) {
+  async create(data) {
     const nuevoProducto = {
       id: faker.datatype.uuid(),
       ...data
@@ -28,15 +28,15 @@ class ProductService {
     return nuevoProducto;
   }
 
-  find() {
+  async find() {
     return this.products;
   }
 
-  findOne(id) {
+  async findOne(id) {
     return this.products.find(item => item.id === id);
   }
 
-  update(id, changes) {
+  async update(id, changes) {
     const index = this.products.findIndex(item => item.id === id);
     if (index === -1) {
       throw new Error('Producto no encotrado');
@@ -50,7 +50,7 @@ class ProductService {
     return this.products[index];
   }
 
-  delete(id) {
+  async delete(id) {
     const index = this.products.findIndex(item => item.id === id);
     if (index === -1) {
       throw new Error('Producto no encotrado');
