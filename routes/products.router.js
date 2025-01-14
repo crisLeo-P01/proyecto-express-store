@@ -1,13 +1,16 @@
 const express = require('express');
 const ProductService = require('./../services/product.service.js');
-
 const router = express.Router();
 const service = new ProductService();
 
-router.get('/:id', async (req, res) => {
-  const { id } = req.params;
-  const product = await service.findOne(id);
-  res.json(product);
+router.get('/:id', async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const product = await service.findOne(id);
+    res.json(product);
+  } catch (error) {
+    next(error)
+  }
 });
 
 router.get('/', async (req, res) => {
@@ -32,8 +35,6 @@ router.patch('/:id', async (req, res) => {
       message: error.message
     })
   }
-
-
 });
 
 router.delete('/:id', async (req, res) => {
